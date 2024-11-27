@@ -1,10 +1,9 @@
-@extends('layout')
-@section('content')
-@foreach($product_details as $key => $value)
+<?php $__env->startSection('content'); ?>
+<?php $__currentLoopData = $product_details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 <div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img src="{{URL::to('/uploads/product/'.$value->product_image)}}" alt="" />
+								<img src="<?php echo e(URL::to('/uploads/product/'.$value->product_image)); ?>" alt="" />
 								<h3>ZOOM</h3>
 
 							</div>
@@ -14,9 +13,9 @@
 								    <div class="carousel-inner">
 
 										<div class="item active">
-										  <a href=""><img src="{{URL::to('public/frontend/images/similar1.jpg')}}" alt=""></a>
-										  <a href=""><img src="{{URL::to('public/frontend/images/similar2.jpg')}}" alt=""></a>
-										  <a href=""><img src="{{URL::to('public/frontend/images/similar3.jpg')}}" alt=""></a>
+										  <a href=""><img src="<?php echo e(URL::to('public/frontend/images/similar1.jpg')); ?>" alt=""></a>
+										  <a href=""><img src="<?php echo e(URL::to('public/frontend/images/similar2.jpg')); ?>" alt=""></a>
+										  <a href=""><img src="<?php echo e(URL::to('public/frontend/images/similar3.jpg')); ?>" alt=""></a>
 										</div>
 										
 										
@@ -45,44 +44,45 @@
                             }
                             ?>
                         </h1>
-								<h2>{{$value->product_name}}</h2>
-								<p>Mã ID: {{$value->product_id}}</p>
+								<h2><?php echo e($value->product_name); ?></h2>
+								<p>Mã ID: <?php echo e($value->product_id); ?></p>
 								<img src="images/product-details/rating.png" alt="" />
 								
-								<form action="{{URL::to('/save-cart')}}" method="POST">
-									{{ csrf_field() }}
+								<form action="<?php echo e(URL::to('/save-cart')); ?>" method="POST">
+									<?php echo e(csrf_field()); ?>
+
 								<span>
-									<span>{{number_format($value->product_price).'VNĐ'}}</span>
+									<span><?php echo e(number_format($value->product_price).'VNĐ'); ?></span>
 								
 									<label>Số lượng:</label>
 									<input name="qty" type="number" min="1"  value="1" />
-									<input name="productid_hidden" type="hidden"  value="{{$value->product_id}}" />
-									@if ($value->product_num> 0)
+									<input name="productid_hidden" type="hidden"  value="<?php echo e($value->product_id); ?>" />
+									<?php if($value->product_num> 0): ?>
                             <button type="submit" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Thêm giỏ hàng
 									</button>
-                            @else
+                            <?php else: ?>
                              <button class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Hết hàng
 									</button>
-                            @endif
+                            <?php endif; ?>
 									
 							
 								</span>
 								</form>
 
 								<p><b>Tình trạng:
-									@if ($value->product_num> 0)
+									<?php if($value->product_num> 0): ?>
                             </b> Còn hàng</p>
-                            @else
+                            <?php else: ?>
                             </b> Hết hàng</p>
-                            @endif
+                            <?php endif; ?>
 
 								<p><b>Điều kiện:</b> Mơi 100%</p>
-								<p><b>Thương hiệu:</b> {{$value->brand_name}}</p>
-								<p><b>Danh mục:</b> {{$value->category_name}}</p>
+								<p><b>Thương hiệu:</b> <?php echo e($value->brand_name); ?></p>
+								<p><b>Danh mục:</b> <?php echo e($value->category_name); ?></p>
 								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 							</div><!--/product-information-->
 						</div>
@@ -99,12 +99,12 @@
 						</div>
 						<div class="tab-content">
 							<div class="tab-pane fade active in" id="details" >
-								<p>{!!$value->product_desc!!}</p>
+								<p><?php echo $value->product_desc; ?></p>
 								
 							</div>
 							
 							<div class="tab-pane fade" id="companyprofile" >
-								<p>{!!$value->product_content!!}</p>
+								<p><?php echo $value->product_content; ?></p>
 								
 						
 							</div>
@@ -135,28 +135,28 @@
 							
 						</div>
 					</div><!--/category-tab-->
-	@endforeach
+	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 					<div class="recommended_items"><!--recommended_items-->
 						<h2 class="title text-center">Sản phẩm liên quan</h2>
 						
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
 								<div class="item active">
-							@foreach($relate as $key => $lienquan)
+							<?php $__currentLoopData = $relate; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $lienquan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											 <div class="single-products">
 		                                        <div class="productinfo text-center">
-		                                            <img src="{{URL::to('uploads/product/'.$lienquan->product_image)}}" alt="" />
-		                                            <h2>{{number_format($lienquan->product_price).' '.'VNĐ'}}</h2>
-		                                            <p>{{$lienquan->product_name}}</p>
+		                                            <img src="<?php echo e(URL::to('uploads/product/'.$lienquan->product_image)); ?>" alt="" />
+		                                            <h2><?php echo e(number_format($lienquan->product_price).' '.'VNĐ'); ?></h2>
+		                                            <p><?php echo e($lienquan->product_name); ?></p>
 		                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</a>
 		                                        </div>
 		                                      
                                 			</div>
 										</div>
 									</div>
-							@endforeach		
+							<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>		
 
 								
 								</div>
@@ -170,4 +170,5 @@
 							  </a>			
 						</div>
 					</div><!--/recommended_items-->
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web-lab10\resources\views/pages/sanpham/show_details.blade.php ENDPATH**/ ?>
